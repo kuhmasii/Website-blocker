@@ -44,11 +44,26 @@ def website_to_block(domain):
 def start_hour():
 
     try:
-        start_hour = int(input(
-            "range of working hours should be given as an integer from 0...23" +
-            "\nStarting hours: "
-        ).strip())
-    except ValueError:
+        #Using the walrus operator, start_hour variable is been checked on the condition
+        #and sametime returned without explicitly calling the varaible
+
+        if 23 >= (start_hour := int(
+                input("range of working hours should be given as an integer from 0...23\nEnding hours: "
+            ).strip())) >= 0:
+            pass
+
+        # Using normal assignment operator with variable been called explicitly   
+        # start_hour = int(input(
+        #     "range of working hours should be given as an integer from 0...23" +
+        #     "\nStarting hours: "
+        # ).strip())
+        # if 23 >= start_hour >= 0:
+        #     start_hour = start_hour        
+        else:
+            print("working hours should be in the range of 0...23")
+            quit()
+
+    except ValueError:    
         start_hour = "Starting hours should be an instance of an integer."
     return start_hour
 
@@ -56,10 +71,27 @@ def start_hour():
 def end_hour():
 
     try:
-        end_hour = int(input(
-            "range of working hours should be given as an integer from 0...23" +
-            "\nEnding hours: "
-        ).strip())
+        if 23 >= (end_hour := int(
+                input("range of working hours should be given as an integer from 0...23\nEnding hours: "
+            ).strip())) >= 0:
+            pass
+       
+        else:
+            print("working hours should be in the range of 0...23")
+            quit()
+
+        # Using normal assignment operator with variable been called explicitly   
+        # end_hour = int(input(
+        #     "range of working hours should be given as an integer from 0...23" +
+        #     "\nEnding hours: "
+        # ).strip())
+
+        # if 23 >= end_hour >= 0:
+        #     end_hour = end_hour
+        # else:
+        #     print("working hours should be in the range of 0...23")
+        #     quit()
+                      
     except ValueError:
         end_hour = "Ending hours should be an instance of an integer."
 
@@ -83,11 +115,10 @@ check_date = check_date(start_hour(), end_hour())
 # print(website_to_block)
 # print(check_date)
 
-
 def webblocking_running_script():
     while True:
         if check_date:
-            print("Isaiah this's your working hours don't be distracted!")
+            print("This's your working hours don't be distracted!")
 
             with open(host_path(), "r+") as file:
                 content = file.read()
@@ -97,7 +128,7 @@ def webblocking_running_script():
                             redirect_path() + "    " + website + "\n"
                         )
         else:
-            print("this is your free time enjoy it.")
+            print("This is your free time enjoy it.")
             with open(host_path(), 'r+') as file:
                 content = file.readlines()
                 file.seek(0)
